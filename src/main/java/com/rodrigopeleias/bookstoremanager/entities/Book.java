@@ -21,18 +21,18 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String name;
 
-    private int pages;
+    private Integer pages;
 
-    private int chapters;
+    private Integer chapters;
 
     private String isbn;
 
     @Embedded
-    private Audit audit = new Audit();
+    private Audit audit;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "publisher_id")
