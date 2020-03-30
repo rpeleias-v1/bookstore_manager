@@ -3,6 +3,8 @@ package com.rodrigopeleias.bookstoremanager.dto.response;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class BookResponse {
@@ -20,4 +22,8 @@ public class BookResponse {
     private String publisherName;
 
     private String authorName;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 }

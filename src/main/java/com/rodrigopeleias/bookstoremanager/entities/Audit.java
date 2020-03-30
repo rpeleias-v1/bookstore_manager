@@ -1,5 +1,6 @@
 package com.rodrigopeleias.bookstoremanager.entities;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.PrePersist;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 @Embeddable
 public class Audit {
 

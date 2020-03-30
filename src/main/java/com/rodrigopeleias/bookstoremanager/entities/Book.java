@@ -32,7 +32,7 @@ public class Book {
     private String isbn;
 
     @Embedded
-    private Audit audit;
+    private Audit audit = Audit.builder().build();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "publisher_id")

@@ -23,7 +23,7 @@ public class Author {
     private String name;
 
     @Embedded
-    private Audit audit;
+    private Audit audit = Audit.builder().build();
 
     @OneToMany(mappedBy = "author")
     private List<Book> books;

@@ -26,7 +26,7 @@ public class Publisher {
     private String name;
 
     @Embedded
-    private Audit audit;
+    private Audit audit = Audit.builder().build();
 
     @OneToMany(mappedBy = "publisher")
     private List<Book> books;
