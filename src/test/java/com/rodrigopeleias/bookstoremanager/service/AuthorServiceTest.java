@@ -1,7 +1,6 @@
 package com.rodrigopeleias.bookstoremanager.service;
 
 import com.github.javafaker.Faker;
-import com.rodrigopeleias.bookstoremanager.entities.Audit;
 import com.rodrigopeleias.bookstoremanager.entities.Author;
 import com.rodrigopeleias.bookstoremanager.repository.AuthorRepository;
 import org.junit.jupiter.api.BeforeEach;
