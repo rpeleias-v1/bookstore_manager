@@ -1,7 +1,7 @@
 package com.rodrigopeleias.bookstoremanager.service;
 
-import com.rodrigopeleias.bookstoremanager.dto.request.BookRequest;
-import com.rodrigopeleias.bookstoremanager.dto.response.BookResponse;
+import com.rodrigopeleias.bookstoremanager.dto.request.BookDTO;
+import com.rodrigopeleias.bookstoremanager.dto.response.MessageResponseDTO;
 import com.rodrigopeleias.bookstoremanager.entities.Author;
 import com.rodrigopeleias.bookstoremanager.entities.Book;
 import com.rodrigopeleias.bookstoremanager.repository.BookRepository;
@@ -9,42 +9,29 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BookService {
 
     private final BookRepository bookRepository;
-
     private final AuthorService authorService;
 
-    public BookResponse create(BookRequest bookRequest) {
-        Author author = authorService.findOrCreate(bookRequest.getAuthorName());
+    public MessageResponseDTO create(BookDTO bookDTO) {
+        //Author author = authorService.findOrCreate(bookDTO.getAuthorName());
 
-        Book book = mapRequestToEntity(bookRequest, author);
+        Book book = mapRequestToEntity(bookDTO, null);
 
         Book savedBook = bookRepository.save(book);
 
-        return mapEntityToResponse(savedBook);
+        return null;
     }
 
-    private Book mapRequestToEntity(BookRequest bookRequest, Author author) {
+    private Book mapRequestToEntity(BookDTO bookDTO, Author author) {
         return Book.builder()
-                .name(bookRequest.getName())
-                .pages(bookRequest.getPages())
-                .chapters(bookRequest.getChapters())
-                .isbn(bookRequest.getIsbn())
+                .name(bookDTO.getName())
+                .pages(bookDTO.getPages())
+                .chapters(bookDTO.getChapters())
+                .isbn(bookDTO.getIsbn())
                 .author(author).build();
-    }
-
-    private BookResponse mapEntityToResponse(Book savedBook) {
-        return BookResponse.builder()
-                .id(savedBook.getId())
-                .name(savedBook.getName())
-                .pages(savedBook.getPages())
-                .chapters(savedBook.getChapters())
-                .isbn(savedBook.getIsbn())
-                .authorName(savedBook.getAuthor().getName()).build();
     }
 }

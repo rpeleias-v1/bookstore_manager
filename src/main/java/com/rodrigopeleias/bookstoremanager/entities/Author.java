@@ -1,7 +1,9 @@
 package com.rodrigopeleias.bookstoremanager.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -15,9 +17,11 @@ import javax.persistence.PrePersist;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
 @Data
 @Builder
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Author {
 
     @Id
@@ -26,9 +30,6 @@ public class Author {
 
     @Column(nullable = false)
     private String name;
-
-    @OneToMany(mappedBy = "author")
-    private List<Book> books;
 
     @Embedded
     private Audit audit = new Audit();

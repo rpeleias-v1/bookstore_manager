@@ -1,12 +1,9 @@
 package com.rodrigopeleias.bookstoremanager.controller;
 
-import com.rodrigopeleias.bookstoremanager.dto.request.BookRequest;
-import com.rodrigopeleias.bookstoremanager.dto.response.BookResponse;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.validation.Valid;
+import com.rodrigopeleias.bookstoremanager.dto.request.BookDTO;
+import com.rodrigopeleias.bookstoremanager.dto.response.MessageResponseDTO;
 
 public interface BookControllerDocs {
 
-    BookResponse create(@Valid @RequestBody BookRequest bookRequest);
+    MessageResponseDTO create(BookDTO bookDTO);
 }

@@ -4,8 +4,8 @@ package com.rodrigopeleias.bookstoremanager.service;
 public class PublisherServiceTest {
 
     //@Mock
-    private PublisherRepository publisherRepository;
+    //private PublisherRepository publisherRepository;
 
     //@InjectMocks
-    private PublisherService publisherService;
+    //private PublisherService publisherService;
 }

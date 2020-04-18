@@ -1,8 +1,9 @@
 package com.rodrigopeleias.bookstoremanager.controller;
 
-import com.rodrigopeleias.bookstoremanager.dto.request.BookRequest;
-import com.rodrigopeleias.bookstoremanager.dto.response.BookResponse;
+import com.rodrigopeleias.bookstoremanager.dto.request.BookDTO;
+import com.rodrigopeleias.bookstoremanager.dto.response.MessageResponseDTO;
 import com.rodrigopeleias.bookstoremanager.service.BookService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,15 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController("/api/v1/books")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BookController implements BookControllerDocs {
 
-    @Autowired
-    private BookService bookService;
+    private final BookService bookService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookResponse create(@Valid @RequestBody BookRequest bookRequest) {
-        return bookService.create(bookRequest);
+    public MessageResponseDTO create(@Valid @RequestBody BookDTO bookDTO) {
+        return bookService.create(bookDTO);
     }
-
 }

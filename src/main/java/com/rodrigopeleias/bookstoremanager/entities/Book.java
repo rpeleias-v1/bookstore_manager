@@ -1,5 +1,6 @@
 package com.rodrigopeleias.bookstoremanager.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,11 @@ import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import java.time.LocalDateTime;
 
+@Entity
 @Data
 @Builder
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
 
     @Id
