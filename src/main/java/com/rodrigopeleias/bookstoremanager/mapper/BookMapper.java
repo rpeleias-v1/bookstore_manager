@@ -1,6 +1,6 @@
 package com.rodrigopeleias.bookstoremanager.mapper;
 
-import com.rodrigopeleias.bookstoremanager.dto.request.BookDTO;
+import com.rodrigopeleias.bookstoremanager.dto.BookDTO;
 import com.rodrigopeleias.bookstoremanager.entities.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

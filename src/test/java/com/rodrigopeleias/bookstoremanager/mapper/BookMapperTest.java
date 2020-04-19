@@ -1,32 +1,39 @@
 package com.rodrigopeleias.bookstoremanager.mapper;
 
-import com.github.javafaker.Faker;
-import com.rodrigopeleias.bookstoremanager.dto.request.BookDTO;
+import com.rodrigopeleias.bookstoremanager.dto.AuthorDTO;
+import com.rodrigopeleias.bookstoremanager.dto.BookDTO;
+import com.rodrigopeleias.bookstoremanager.entities.Author;
 import com.rodrigopeleias.bookstoremanager.entities.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static com.rodrigopeleias.bookstoremanager.utils.BookUtils.createFakeBook;
+import static com.rodrigopeleias.bookstoremanager.utils.BookUtils.createFakeBookDTO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 public class BookMapperTest {
 
-    private static final Faker faker = Faker.instance();
-
     @Test
     void testGivenBookDTOThenReturnBookEntity() {
-        BookDTO bookDTO = BookDTO.builder()
-                .id(faker.number().randomNumber())
-                .name(faker.book().title())
-                .pages(faker.number().numberBetween(0, 200))
-                .chapters(faker.number().numberBetween(1, 20))
-                .isbn("0-596-52068-9")
-                .publisherName(faker.book().publisher()).build();
-
-
+        BookDTO bookDTO = createFakeBookDTO();
         Book book = BookMapper.INSTANCE.toModel(bookDTO);
 
+        assertBookDTOConversionToEntity(bookDTO, book);
+        assertAuthorDTOConversionToEntity(bookDTO.getAuthor(), book.getAuthor());
+    }
+
+    @Test
+    void testGivenBookEntityThenReturnBookDTO() {
+        Book book = createFakeBook();
+        BookDTO bookDTO = BookMapper.INSTANCE.toDTO(book);
+
+        assertBookEntityConversionToDTO(book, bookDTO);
+        assertAuthorEntityConversionToDTO(book.getAuthor(), bookDTO.getAuthor());
+    }
+
+    private void assertBookDTOConversionToEntity(BookDTO bookDTO, Book book) {
         assertEquals(bookDTO.getId(), book.getId());
         assertEquals(bookDTO.getName(), book.getName());
         assertEquals(bookDTO.getPages(), book.getPages());
@@ -35,24 +42,22 @@ public class BookMapperTest {
         assertEquals(bookDTO.getPublisherName(), book.getPublisherName());
     }
 
-    @Test
-    void testGivenBookEntityThenReturnBookDTO() {
-        Book book = Book.builder()
-                .id(faker.number().randomNumber())
-                .name(faker.book().title())
-                .pages(faker.number().numberBetween(0, 200))
-                .chapters(faker.number().numberBetween(1, 20))
-                .isbn("0-596-52068-9")
-                .publisherName(faker.book().publisher()).build();
+    private void assertAuthorDTOConversionToEntity(AuthorDTO authorDTO, Author author) {
+        assertEquals(authorDTO.getId(), author.getId());
+        assertEquals(authorDTO.getName(), author.getName());
+    }
 
-
-        BookDTO bookDTO = BookMapper.INSTANCE.toDTO(book);
-
+    private void assertBookEntityConversionToDTO(Book book, BookDTO bookDTO) {
         assertEquals(book.getId(), bookDTO.getId());
         assertEquals(book.getName(), bookDTO.getName());
         assertEquals(book.getPages(), bookDTO.getPages());
         assertEquals(book.getChapters(), bookDTO.getChapters());
         assertEquals(book.getIsbn(), bookDTO.getIsbn());
         assertEquals(book.getPublisherName(), bookDTO.getPublisherName());
+    }
+
+    private void assertAuthorEntityConversionToDTO(Author author, AuthorDTO authorDTO) {
+        assertEquals(author.getId(), authorDTO.getId());
+        assertEquals(author.getName(), authorDTO.getName());
     }
 }

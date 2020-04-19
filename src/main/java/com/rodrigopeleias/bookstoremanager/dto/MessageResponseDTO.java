@@ -1,4 +1,4 @@
-package com.rodrigopeleias.bookstoremanager.dto.response;
+package com.rodrigopeleias.bookstoremanager.dto;
 
 import lombok.Builder;
 import lombok.Data;

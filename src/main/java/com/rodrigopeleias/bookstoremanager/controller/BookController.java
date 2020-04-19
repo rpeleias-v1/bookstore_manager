@@ -1,7 +1,7 @@
 package com.rodrigopeleias.bookstoremanager.controller;
 
-import com.rodrigopeleias.bookstoremanager.dto.request.BookDTO;
-import com.rodrigopeleias.bookstoremanager.dto.response.MessageResponseDTO;
+import com.rodrigopeleias.bookstoremanager.dto.BookDTO;
+import com.rodrigopeleias.bookstoremanager.dto.MessageResponseDTO;
 import com.rodrigopeleias.bookstoremanager.service.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

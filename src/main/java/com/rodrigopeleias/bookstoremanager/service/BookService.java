@@ -1,7 +1,7 @@
 package com.rodrigopeleias.bookstoremanager.service;
 
-import com.rodrigopeleias.bookstoremanager.dto.request.BookDTO;
-import com.rodrigopeleias.bookstoremanager.dto.response.MessageResponseDTO;
+import com.rodrigopeleias.bookstoremanager.dto.BookDTO;
+import com.rodrigopeleias.bookstoremanager.dto.MessageResponseDTO;
 import com.rodrigopeleias.bookstoremanager.entities.Author;
 import com.rodrigopeleias.bookstoremanager.entities.Book;
 import com.rodrigopeleias.bookstoremanager.repository.BookRepository;
