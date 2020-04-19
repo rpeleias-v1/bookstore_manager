@@ -3,10 +3,10 @@ package com.rodrigopeleias.bookstoremanager;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class BookstoreManagerFreeVersionApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 

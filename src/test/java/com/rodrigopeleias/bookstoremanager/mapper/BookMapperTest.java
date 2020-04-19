@@ -15,10 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 public class BookMapperTest {
 
+    private static final BookMapper bookMapper = BookMapper.INSTANCE;
+
     @Test
     void testGivenBookDTOThenReturnBookEntity() {
         BookDTO bookDTO = createFakeBookDTO();
-        Book book = BookMapper.INSTANCE.toModel(bookDTO);
+        Book book = bookMapper.toModel(bookDTO);
 
         assertBookDTOConversionToEntity(bookDTO, book);
         assertAuthorDTOConversionToEntity(bookDTO.getAuthor(), book.getAuthor());
@@ -27,7 +29,7 @@ public class BookMapperTest {
     @Test
     void testGivenBookEntityThenReturnBookDTO() {
         Book book = createFakeBook();
-        BookDTO bookDTO = BookMapper.INSTANCE.toDTO(book);
+        BookDTO bookDTO = bookMapper.toDTO(book);
 
         assertBookEntityConversionToDTO(book, bookDTO);
         assertAuthorEntityConversionToDTO(book.getAuthor(), bookDTO.getAuthor());

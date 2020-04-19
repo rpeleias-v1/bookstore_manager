@@ -1,6 +1,8 @@
 package com.rodrigopeleias.bookstoremanager.service;
 
+import com.rodrigopeleias.bookstoremanager.dto.AuthorDTO;
 import com.rodrigopeleias.bookstoremanager.entities.Author;
+import com.rodrigopeleias.bookstoremanager.mapper.AuthorMapper;
 import com.rodrigopeleias.bookstoremanager.repository.AuthorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +14,17 @@ import java.util.Optional;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthorService {
 
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
-    public Author findOrCreate(String authorName) {
-        return Optional.ofNullable(authorRepository.findByName(authorName))
-                .orElse(createAndSave(authorName));
+    private final AuthorMapper authorMapper = AuthorMapper.INSTANCE;
+
+    public Author findOrCreate(AuthorDTO authorDTO) {
+        return Optional.ofNullable(authorRepository.findByName(authorDTO.getName()))
+                .orElse(createAndSave(authorDTO));
     }
 
-    private Author createAndSave(String authorName) {
-        Author newAuthor = Author.builder().name(authorName).build();
+    private Author createAndSave(AuthorDTO authorDTO) {
+        Author newAuthor = authorMapper.toModel(authorDTO);
         return authorRepository.save(newAuthor);
     }
 }

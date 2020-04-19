@@ -30,7 +30,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
@@ -42,13 +42,10 @@ public class Book {
     @Column(nullable = false)
     private String isbn;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "author_id")
-    private Author author;
-
     @Column(name = "publisher_name", nullable = false, unique = true)
     private String publisherName;
 
-    @Embedded
-    private Audit audit = new Audit();
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @JoinColumn(name = "author_id")
+    private Author author;
 }
