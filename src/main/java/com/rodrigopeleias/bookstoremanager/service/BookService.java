@@ -4,6 +4,7 @@ import com.rodrigopeleias.bookstoremanager.dto.BookDTO;
 import com.rodrigopeleias.bookstoremanager.dto.MessageResponseDTO;
 import com.rodrigopeleias.bookstoremanager.entities.Book;
 import com.rodrigopeleias.bookstoremanager.exception.BookAlreadyExistsException;
+import com.rodrigopeleias.bookstoremanager.exception.BookNotFoundException;
 import com.rodrigopeleias.bookstoremanager.mapper.BookMapper;
 import com.rodrigopeleias.bookstoremanager.repository.BookRepository;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,12 @@ public class BookService {
         Book savedBook = bookRepository.save(book);
 
         return createReturnMessage("Book with ID %s successfully created.", savedBook.getId());
+    }
+
+    public BookDTO findById(Long bookId) throws BookNotFoundException {
+        Book foundBook = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException(bookId));
+        return bookMapper.toDTO(foundBook);
     }
 
     private MessageResponseDTO createReturnMessage(String message, Long id) {
