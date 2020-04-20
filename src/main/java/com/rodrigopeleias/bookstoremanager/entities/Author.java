@@ -1,40 +1,30 @@
 package com.rodrigopeleias.bookstoremanager.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embedded;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.time.LocalDateTime;
-import java.util.List;
 
+@Entity
 @Data
 @Builder
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
-    private String phone;
-
-    private String email;
-
-    private LocalDateTime birthdate;
-
+    @Column(nullable = false)
     private Integer age;
-
-    @Embedded
-    private Audit audit = new Audit();
-
-    @OneToMany(mappedBy = "author")
-    private List<Book> books;
 }

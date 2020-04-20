@@ -1,10 +1,12 @@
 package com.rodrigopeleias.bookstoremanager.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,32 +15,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostUpdate;
+import javax.persistence.PrePersist;
+import java.time.LocalDateTime;
 
+@Entity
 @Data
 @Builder
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
-    private int pages;
+    @Column(nullable = false)
+    private Integer pages;
 
-    private int chapters;
+    @Column(nullable = false)
+    private Integer chapters;
 
+    @Column(nullable = false)
     private String isbn;
 
-    @Embedded
-    private Audit audit = new Audit();
+    @Column(name = "publisher_name", nullable = false, unique = true)
+    private String publisherName;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "publisher_id")
-    private Publisher publisher;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "author_id")
     private Author author;
 }
