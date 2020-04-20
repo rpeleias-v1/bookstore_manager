@@ -99,7 +99,6 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.publisherName", is(bookDTO.getPublisherName())));
     }
 
-
     @Test
     void testWhenGETWithInvalidIDisCalledThenNotFoundShouldBeRetorned() throws Exception {
         var invalidId = 1L;
@@ -111,12 +110,9 @@ public class BookControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-
     private MessageResponseDTO createReturnMessage(String message, Long id) {
         return MessageResponseDTO.builder()
                 .message(String.format(message, id))
                 .build();
     }
-
-
 }

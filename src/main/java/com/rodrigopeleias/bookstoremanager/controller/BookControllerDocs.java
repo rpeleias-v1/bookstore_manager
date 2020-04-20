@@ -26,7 +26,7 @@ public interface BookControllerDocs {
     @ApiOperation(value = "Given an ID, return the corresponding book.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Book with informed ID is successfully returned."),
-            @ApiResponse(code = 404, message = "A required field is missing or ISBN format is wrong.")
+            @ApiResponse(code = 404, message = "Error returned when a book is not found.")
     })
     BookDTO findById(@PathVariable Long bookId) throws BookNotFoundException;
 }
