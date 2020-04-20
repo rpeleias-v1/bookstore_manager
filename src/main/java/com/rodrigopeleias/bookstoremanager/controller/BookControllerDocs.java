@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,4 +30,11 @@ public interface BookControllerDocs {
             @ApiResponse(code = 404, message = "Error returned when a book is not found.")
     })
     BookDTO findById(@PathVariable Long bookId) throws BookNotFoundException;
+
+    @ApiOperation(value = "Given an ID, delete the corresponding book.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Book with informed ID is successfully deleted."),
+            @ApiResponse(code = 404, message = "Error returned when a book is not found.")
+    })
+    void deleteById(Long bookId) throws BookNotFoundException;
 }

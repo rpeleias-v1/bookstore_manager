@@ -19,7 +19,10 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import static com.rodrigopeleias.bookstoremanager.utils.BookUtils.asJsonString;
 import static com.rodrigopeleias.bookstoremanager.utils.BookUtils.createFakeBookDTO;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -108,6 +111,17 @@ public class BookControllerTest {
         mockMvc.perform(get(BOOK_API_URL_PATH + "/" + invalidId)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testWhenDELETEWithValidIDisCalledThenABookShouldBeDeleted() throws Exception {
+        var validId = 1L;
+
+        mockMvc.perform(delete(BOOK_API_URL_PATH + "/" + validId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        verify(bookService, times(1)).deleteById(validId);
     }
 
     private MessageResponseDTO createReturnMessage(String message, Long id) {

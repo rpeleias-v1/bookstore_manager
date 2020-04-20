@@ -22,6 +22,8 @@ import static com.rodrigopeleias.bookstoremanager.utils.BookUtils.createFakeBook
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,12 +69,31 @@ public class BookServiceTest {
     }
 
     @Test
-    void whenGivenUnexistingIdThenThrowAnException() {
+    void whenGivenUnexistingIdThenNotFindThrowAnException() {
         var invalidId = 1L;
         when(bookRepository.findById(invalidId))
                 .thenReturn(Optional.ofNullable(any(Book.class)));
 
         assertThrows(BookNotFoundException.class, () -> bookService.findById(invalidId));
+    }
+
+    @Test
+    void whenGivenExistingIdThenRemoveThisBook() throws BookNotFoundException {
+        Book expectedDeletedBook = createFakeBook();
+
+        when(bookRepository.findById(expectedDeletedBook.getId())).thenReturn(Optional.of(expectedDeletedBook));
+
+        bookService.deleteById(expectedDeletedBook.getId());
+        verify(bookRepository, times(1)).deleteById(expectedDeletedBook.getId());
+    }
+
+    @Test
+    void whenGivenUnexistingIdThenNotDeleteAndThrowAnException() {
+        var invalidId = 1L;
+        when(bookRepository.findById(invalidId))
+                .thenReturn(Optional.ofNullable(any(Book.class)));
+
+        assertThrows(BookNotFoundException.class, () -> bookService.deleteById(invalidId));
     }
 
     private void assertDTOisConvertedFromEntity(Book expectedFoundBook, BookDTO bookDTO) {

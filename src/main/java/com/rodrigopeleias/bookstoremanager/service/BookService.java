@@ -43,4 +43,10 @@ public class BookService {
                 .message(String.format(message, id))
                 .build();
     }
+
+    public void deleteById(Long bookId) throws BookNotFoundException {
+        bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException(bookId));
+        bookRepository.deleteById(bookId);
+    }
 }
